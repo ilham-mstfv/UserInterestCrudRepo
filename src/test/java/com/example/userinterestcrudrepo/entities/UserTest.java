@@ -16,8 +16,8 @@ public class UserTest {
     static int userAge = 20;
     static List<Interest> userInterests = List.of(
             new Interest(1, "soccer", "sport", "american football"),
-            new Interest(1, "football", "sport", "some kind of sport"),
-            new Interest(1, "handball", "sport", "some kind of sport")
+            new Interest(2, "football", "sport", "some kind of sport"),
+            new Interest(3, "handball", "sport", "some kind of sport")
     );
     static Country userCountry = Country.AZE;
     static Lang userLang = Lang.RUS;
