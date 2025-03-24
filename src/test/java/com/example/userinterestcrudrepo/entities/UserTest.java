@@ -23,7 +23,7 @@ public class UserTest {
     static Lang userLang = Lang.RUS;
     static BigDecimal userBalance = BigDecimal.valueOf(100.2);
 
-    
+
     @Test
     void createUserTest() {
         User user = new User(
@@ -41,5 +41,24 @@ public class UserTest {
         assertThat(user.getBalance()).isEqualTo(userBalance);
     }
 
+    @Test
+    void createUserWithSettersTest() {
+        User user = new User();
 
+        user.setId(userId);
+        user.setPersonalData(userPersonalData);
+        user.setAge(userAge);
+        user.setInterests(userInterests);
+        user.setCountry(userCountry);
+        user.setLang(userLang);
+        user.setBalance(userBalance);
+
+        assertThat(user.getId()).isNotNull().isEqualTo(userId);
+        assertThat(user.getPersonalData()).isNotNull().isEqualTo(userPersonalData);
+        assertThat(user.getAge()).isNotNull().isEqualTo(userAge);
+        assertThat(user.getInterests()).isNotNull().isEqualTo(userInterests);
+        assertThat(user.getCountry()).isEqualTo(userCountry);
+        assertThat(user.getLang()).isEqualTo(userLang);
+        assertThat(user.getBalance()).isEqualTo(userBalance);
+    }
 }
