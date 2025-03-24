@@ -52,14 +52,6 @@ public class User {
 
     @NotNull
     private BigDecimal balance;
-
-    public void addInterest(@NotNull Interest interest) {
-        this.interests.add(interest);
-    }
-
-    public void removeInterest(@NotNull Interest interest) {
-        this.interests.remove(interest);
-    }
 }
 
 
