@@ -1,12 +1,12 @@
 package com.example.userinterestcrudrepo.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserFilterRequest {
 
     private String personalData;
