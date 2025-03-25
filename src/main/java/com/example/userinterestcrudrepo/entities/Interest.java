@@ -19,7 +19,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Interest {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
         private int id;
 
         @NotBlank
@@ -33,4 +32,12 @@ public class Interest {
         @NotBlank
         @Size(max = 64)
         private String description;
+
+        public Interest(String name, String tag, String description) {
+                this.name = name;
+                this.tag = tag;
+                this.description = description;
+
+                this.id = ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
+        }
 }
