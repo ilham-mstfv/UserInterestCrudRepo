@@ -4,6 +4,7 @@ import com.example.userinterestcrudrepo.models.Country;
 import com.example.userinterestcrudrepo.models.Lang;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,6 +12,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
@@ -23,7 +25,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotBlank
@@ -31,7 +32,8 @@ public class User {
     private String personalData;
 
     @NotNull
-    @Min(0)
+    @Min(1)
+    @Max(150)
     private int age;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -52,6 +54,18 @@ public class User {
 
     @NotNull
     private BigDecimal balance;
+
+    public User(String personalData, int age, List<Interest> interests,
+                Country country, Lang lang, BigDecimal balance) {
+        this.personalData = personalData;
+        this.age = age;
+        this.interests = interests;
+        this.country = country;
+        this.lang = lang;
+        this.balance = balance;
+
+        this.id = ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
+    }
 }
 
 
