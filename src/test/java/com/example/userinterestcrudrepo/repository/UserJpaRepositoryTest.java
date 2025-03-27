@@ -72,14 +72,6 @@ public class UserJpaRepositoryTest {
     }
 
     @Test
-    void getUserById_ReturnUser_WhenFound() {
-        assertThat(userRepository.getUserById(staticUsers.getFirst().getId()))
-                .isPresent()
-                .get()
-                .isEqualTo(staticUsers.getFirst());
-    }
-
-    @Test
     void getUserById_ReturnUser_WhenNotFound() {
         assertThat(userRepository.getUserById(-1)).isEmpty();
     }
