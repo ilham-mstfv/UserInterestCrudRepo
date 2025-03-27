@@ -12,7 +12,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
@@ -25,6 +24,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank
@@ -63,8 +63,6 @@ public class User {
         this.country = country;
         this.lang = lang;
         this.balance = balance;
-
-        this.id = ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
     }
 }
 

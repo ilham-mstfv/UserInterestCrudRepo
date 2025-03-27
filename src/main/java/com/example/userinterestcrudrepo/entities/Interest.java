@@ -2,11 +2,8 @@ package com.example.userinterestcrudrepo.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
@@ -19,6 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Interest {
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
 
         @NotBlank
@@ -37,7 +35,5 @@ public class Interest {
                 this.name = name;
                 this.tag = tag;
                 this.description = description;
-
-                this.id = ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
         }
 }
