@@ -69,4 +69,18 @@
                 constraintName="fk_interest"/>
     </changeSet>
 
+    <changeSet id="3" author="ilham">
+        <createTable tableName="user_accs">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

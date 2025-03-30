@@ -18,6 +18,7 @@ import java.util.Optional;
 public class GlobalExceptionHandler {
 
     // TODO: Добавить обработку ошибок БД
+    // TODO: JWTVerificationException, ServletException
 
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
@@ -69,6 +70,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<String>> handleException(Exception exception) {
+        StatusCode error = StatusCode.SERVER_ERROR;
+        logger.error(error.getMessage(), exception);
+
+        return this.buildResponseEntity(error, exception);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiResponse<String>> handleRuntimeException(RuntimeException exception) {
         StatusCode error = StatusCode.SERVER_ERROR;
         logger.error(error.getMessage(), exception);
 
