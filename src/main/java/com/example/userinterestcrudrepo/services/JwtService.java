@@ -15,11 +15,19 @@ import java.util.Optional;
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret}")
-    private String secret;
+    private static String SECRET;
+    private static int EXPIRATION_TIME;
+    private static String ISSUER;
 
-    private final static int EXPIRATION_TIME = 86_400_000; // One Day
-    private final static String ISSUER = "UserInterestCrudRepo";
+    public JwtService(
+            @Value("${jwt.secret}") String SECRET,
+            @Value("${jwt.expiration}") int EXPIRATION_TIME,
+            @Value("${jwt.issuer}") String ISSUER
+    ) {
+        JwtService.SECRET = SECRET;
+        JwtService.EXPIRATION_TIME = EXPIRATION_TIME;
+        JwtService.ISSUER = ISSUER;
+    }
 
     public String generateToken(UserDetails userDetails)
             throws IllegalArgumentException, JWTCreationException {
@@ -29,12 +37,12 @@ public class JwtService {
                 .withIssuer(ISSUER)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC256(secret));
+                .sign(Algorithm.HMAC256(SECRET));
     }
 
     public String validateTokenAndRetrieveSubject(String token)
             throws JWTVerificationException {
-        return JWT.require(Algorithm.HMAC256(secret))
+        return JWT.require(Algorithm.HMAC256(SECRET))
                 .withSubject("username")
                 .withIssuer(ISSUER)
                 .build()
@@ -45,7 +53,7 @@ public class JwtService {
     public String validateTokenWithUsername(String token, String username)
             throws JWTVerificationException{
 
-        return Optional.of(JWT.require(Algorithm.HMAC256(secret))
+        return Optional.of(JWT.require(Algorithm.HMAC256(SECRET))
                         .withIssuer(ISSUER)
                         .build().verify(token))
                 .filter(jwt -> jwt.getExpiresAt() == null || jwt.getExpiresAt().after(new Date()))
