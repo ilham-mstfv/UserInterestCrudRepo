@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
 
@@ -31,26 +33,40 @@ public class AuthService {
     }
 
     public String authByRequest(AuthRequest request) {
-        String username = request.getUsername();
-        String password = request.getPassword();
-        UserDetails userDetails;
+        return this.tryLoadUserByUsername(request.getUsername())
+                .filter(userDetails ->
+                        this.validatePassword(request.getPassword(), userDetails.getPassword()))
+                .map(jwtService::generateToken)
+                .orElseGet(() -> registerAndGenerateTokenByRequest(request));
+    }
 
+    private Optional<UserDetails> tryLoadUserByUsername(String username) {
         try {
-            userDetails = userAccDetailsService.loadUserByUsername(username);
-
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new IllegalArgumentException("Wrong password");
-            }
+            return Optional.of(userAccDetailsService.loadUserByUsername(username));
         } catch (UsernameNotFoundException e) {
-            var hashedPassword = passwordEncoder.encode(password);
-            userDetails = User.builder()
-                    .username(username)
-                    .password(hashedPassword)
-                    .roles("USER")
-                    .build();
-            userAccJpaRepository.insertUserAcc(new UserAcc(username, hashedPassword));
+            return Optional.empty();
         }
+    }
 
+    private boolean validatePassword(String rawPassword, String encodedPassword) {
+        if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+            throw new IllegalArgumentException("Wrong password");
+        }
+        return true;
+    }
+
+    private String registerAndGenerateTokenByRequest(AuthRequest request) {
+        UserAcc userAcc = new UserAcc(
+                request.getUsername(),
+                passwordEncoder.encode(request.getPassword()));
+
+        UserDetails userDetails = User.builder()
+                .username(userAcc.getUsername())
+                .password(userAcc.getPassword())
+                .roles("USER")
+                .build();
+
+        userAccJpaRepository.insertUserAcc(userAcc);
         return jwtService.generateToken(userDetails);
     }
 }
