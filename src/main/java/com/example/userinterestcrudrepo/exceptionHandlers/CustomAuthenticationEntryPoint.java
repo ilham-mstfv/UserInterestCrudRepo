@@ -26,6 +26,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                         401,
                         "Unauthorized",
                         authException.getMessage()
+                                + ". Use the correct token for authentication"
                 ))
         );
     }
