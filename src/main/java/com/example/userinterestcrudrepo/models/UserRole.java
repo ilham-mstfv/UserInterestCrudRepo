@@ -1,6 +1,6 @@
 package com.example.userinterestcrudrepo.models;
 
-public enum Role {
+public enum UserRole {
     USER,
     ADMIN,
     ;
