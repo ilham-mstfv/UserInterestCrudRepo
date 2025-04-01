@@ -1,5 +1,6 @@
 package com.example.userinterestcrudrepo.entities;
 
+import com.example.userinterestcrudrepo.models.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -21,10 +22,20 @@ public class UserAcc {
     @Size(max = 64)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     public UserAcc() {}
 
     public UserAcc (String username, String password) {
         this.username = username;
         this.password = password;
+        this.role = UserRole.USER;
+    }
+
+    public UserAcc (String username, String password, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 }
