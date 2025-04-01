@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
+public class AuthLogRequest {
 
     @NotBlank
     @Size(max = 64)
