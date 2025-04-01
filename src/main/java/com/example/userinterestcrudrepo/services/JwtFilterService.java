@@ -1,17 +1,14 @@
 package com.example.userinterestcrudrepo.services;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import io.micrometer.common.util.StringUtils;
+import com.example.userinterestcrudrepo.models.UserRole;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -22,18 +19,14 @@ import java.util.Optional;
 @Service
 public class JwtFilterService extends OncePerRequestFilter {
 
-    private final PasswordEncoder passwordEncoder;
-    private JwtService jwtService;
-
-    private UserAccDetailsService userAccDetailsService;
+    private final JwtService jwtService;
+    private final UserAccDetailsService userAccDetailsService;
 
     public JwtFilterService(
             JwtService jwtService,
-            UserAccDetailsService userAccDetailsService,
-            PasswordEncoder passwordEncoder) {
+            UserAccDetailsService userAccDetailsService) {
         this.jwtService = jwtService;
         this.userAccDetailsService = userAccDetailsService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -52,6 +45,10 @@ public class JwtFilterService extends OncePerRequestFilter {
                 .map(authHeader -> authHeader.substring(7))
                 .ifPresentOrElse(
                         token -> {
+                            assert !request.getRequestURI().equals("/users/auth/reg") || UserRole
+                                    .valueOf(request.getHeader("role"))
+                                    .equals(UserRole.ADMIN);
+
                             String username = jwtService.validateTokenAndRetrieveSubject(token);
 
                             UserDetails userDetails = userAccDetailsService.loadUserByUsername(username);
