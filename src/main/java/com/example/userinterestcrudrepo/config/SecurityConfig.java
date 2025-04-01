@@ -3,7 +3,6 @@ package com.example.userinterestcrudrepo.config;
 import com.example.userinterestcrudrepo.exceptionHandlers.CustomAccessDeniedHandler;
 import com.example.userinterestcrudrepo.exceptionHandlers.CustomAuthenticationEntryPoint;
 import com.example.userinterestcrudrepo.services.JwtFilterService;
-import com.example.userinterestcrudrepo.services.UserAccDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,14 +17,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-    private UserAccDetailsService userDetailsService;
-    private JwtFilterService jwtFilterService;
+    private final JwtFilterService jwtFilterService;
 
     public SecurityConfig(
-            UserAccDetailsService userDetailsService,
             JwtFilterService jwtFilterService
     ) {
-        this.userDetailsService = userDetailsService;
         this.jwtFilterService = jwtFilterService;
     }
 
