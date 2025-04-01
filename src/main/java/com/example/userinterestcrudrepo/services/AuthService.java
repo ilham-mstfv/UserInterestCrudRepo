@@ -1,11 +1,10 @@
 package com.example.userinterestcrudrepo.services;
 
 import com.example.userinterestcrudrepo.entities.UserAcc;
-import com.example.userinterestcrudrepo.models.AuthRequest;
+import com.example.userinterestcrudrepo.models.AuthLogRequest;
+import com.example.userinterestcrudrepo.models.AuthRegRequest;
 import com.example.userinterestcrudrepo.repository.UserAccJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,20 +31,27 @@ public class AuthService {
         this.userAccJpaRepository = userAccJpaRepository;
     }
 
-    public String logByRequest(AuthRequest request) {
-        return this.tryLoadUserByUsername(request.getUsername())
+    public String loginByRequest(AuthLogRequest request) {
+        return Optional.ofNullable(
+                userAccDetailsService.loadUserByUsername(request.getUsername()))
                 .filter(userDetails ->
                         this.validatePassword(request.getPassword(), userDetails.getPassword()))
                 .map(jwtService::generateToken)
-                .orElseGet(() -> registerAndGenerateTokenByRequest(request));
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found or invalid password"));
     }
 
-    private Optional<UserDetails> tryLoadUserByUsername(String username) {
-        try {
-            return Optional.of(userAccDetailsService.loadUserByUsername(username));
-        } catch (UsernameNotFoundException e) {
-            return Optional.empty();
-        }
+    public String registerByRequest(AuthRegRequest request) {
+        userAccJpaRepository.getUserAccByUsername(request.getUsername())
+                .ifPresentOrElse(userAcc -> {
+                    throw new IllegalArgumentException(
+                            "User '"+ request.getUsername() +"' already exists");
+                }, () -> userAccJpaRepository.insertUserAcc(new UserAcc(
+                        request.getUsername(),
+                        passwordEncoder.encode(request.getPassword()),
+                        request.getRole()))
+                );
+
+        return "User '" + request.getUsername() + "' was registered successfully";
     }
 
     private boolean validatePassword(String rawPassword, String encodedPassword) {
@@ -53,20 +59,5 @@ public class AuthService {
             throw new IllegalArgumentException("Wrong password");
         }
         return true;
-    }
-
-    private String registerAndGenerateTokenByRequest(AuthRequest request) {
-        UserAcc userAcc = new UserAcc(
-                request.getUsername(),
-                passwordEncoder.encode(request.getPassword()));
-
-        UserDetails userDetails = User.builder()
-                .username(userAcc.getUsername())
-                .password(userAcc.getPassword())
-                .roles("USER")
-                .build();
-
-        userAccJpaRepository.insertUserAcc(userAcc);
-        return jwtService.generateToken(userDetails);
     }
 }
