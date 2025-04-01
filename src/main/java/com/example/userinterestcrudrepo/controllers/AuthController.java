@@ -23,14 +23,21 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/users/auth")
+    @PostMapping("/users/auth/log")
     public ApiResponse<AuthResponse> authenticateUser(@Valid @RequestBody AuthRequest authRequest) {
         return ApiResponse.success(new AuthResponse(
-                authService.authByRequest(authRequest)));
+                authService.logByRequest(authRequest)));
     }
 
-    @GetMapping("/users/auth")
+    @GetMapping("/users/auth/log")
     public ApiResponse<String> message() {
         return ApiResponse.success("AuthController Message");
+    }
+
+    @PostMapping
+    public ApiResponse<AuthResponse> createUser(@Valid @RequestBody AuthRequest authRequest) {
+        // return ApiResponse.success(authService.registerByRequest(authRequest));
+
+        return ApiResponse.success(new AuthResponse());
     }
 }

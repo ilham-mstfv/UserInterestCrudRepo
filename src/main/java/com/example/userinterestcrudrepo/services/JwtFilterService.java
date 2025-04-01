@@ -43,7 +43,7 @@ public class JwtFilterService extends OncePerRequestFilter {
             FilterChain chain
     ) throws ServletException, IOException, JWTVerificationException {
 
-        if (request.getRequestURI().equals("/users/auth")) {
+        if (request.getRequestURI().equals("/users/auth/log")) {
             chain.doFilter(request, response);
             return;
         }

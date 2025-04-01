@@ -32,7 +32,7 @@ public class AuthService {
         this.userAccJpaRepository = userAccJpaRepository;
     }
 
-    public String authByRequest(AuthRequest request) {
+    public String logByRequest(AuthRequest request) {
         return this.tryLoadUserByUsername(request.getUsername())
                 .filter(userDetails ->
                         this.validatePassword(request.getPassword(), userDetails.getPassword()))
