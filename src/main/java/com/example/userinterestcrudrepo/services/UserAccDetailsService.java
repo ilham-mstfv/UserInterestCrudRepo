@@ -21,11 +21,10 @@ public class UserAccDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var acc = Optional.ofNullable(userAccJpaRepository.getUserAccByUsername(username))
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("No User Account found with username: " + username));
-
-        return this.convertToUserDetails(acc);
+        return userAccJpaRepository.getUserAccByUsername(username)
+                .map(this::convertToUserDetails)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                                "No User Account found with username: " + username));
     }
 
     private UserDetails convertToUserDetails(UserAcc userAcc) {
