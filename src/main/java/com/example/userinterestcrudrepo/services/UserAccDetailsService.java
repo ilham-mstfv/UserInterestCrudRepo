@@ -27,11 +27,11 @@ public class UserAccDetailsService implements UserDetailsService {
                                 "No User Account found with username: " + username));
     }
 
-    private UserDetails convertToUserDetails(UserAcc userAcc) {
+    public UserDetails convertToUserDetails(UserAcc userAcc) {
         return User.builder()
                 .username(userAcc.getUsername())
                 .password(userAcc.getPassword())
-                .roles("USER")
+                .roles(String.valueOf(userAcc.getRole()))
                 .build();
     }
 }
