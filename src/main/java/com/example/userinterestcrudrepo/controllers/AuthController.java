@@ -1,7 +1,8 @@
 package com.example.userinterestcrudrepo.controllers;
 
 import com.example.userinterestcrudrepo.models.ApiResponse;
-import com.example.userinterestcrudrepo.models.AuthRequest;
+import com.example.userinterestcrudrepo.models.AuthLogRequest;
+import com.example.userinterestcrudrepo.models.AuthRegRequest;
 import com.example.userinterestcrudrepo.models.AuthResponse;
 import com.example.userinterestcrudrepo.services.AuthService;
 import jakarta.validation.Valid;
@@ -24,20 +25,13 @@ public class AuthController {
     }
 
     @PostMapping("/users/auth/log")
-    public ApiResponse<AuthResponse> authenticateUser(@Valid @RequestBody AuthRequest authRequest) {
+    public ApiResponse<AuthResponse> loginUser(@Valid @RequestBody AuthLogRequest authRequest) {
         return ApiResponse.success(new AuthResponse(
-                authService.logByRequest(authRequest)));
+                authService.loginByRequest(authRequest)));
     }
 
-    @GetMapping("/users/auth/log")
-    public ApiResponse<String> message() {
-        return ApiResponse.success("AuthController Message");
-    }
-
-    @PostMapping
-    public ApiResponse<AuthResponse> createUser(@Valid @RequestBody AuthRequest authRequest) {
-        // return ApiResponse.success(authService.registerByRequest(authRequest));
-
-        return ApiResponse.success(new AuthResponse());
+    @PostMapping("/users/auth/reg")
+    public ApiResponse<String> registerUser(@Valid @RequestBody AuthRegRequest authRequest) {
+        return ApiResponse.success(authService.registerByRequest(authRequest));
     }
 }
