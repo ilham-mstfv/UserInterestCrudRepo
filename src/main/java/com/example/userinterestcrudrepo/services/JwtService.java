@@ -31,12 +31,17 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails)
             throws IllegalArgumentException, JWTCreationException {
+        return this.generateToken(userDetails, EXPIRATION_TIME);
+    }
+
+    public String generateToken(UserDetails userDetails, int expirationTime)
+            throws IllegalArgumentException, JWTCreationException {
         return JWT.create()
                 .withSubject("username")
                 .withClaim("username", userDetails.getUsername())
                 .withIssuer(ISSUER)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
                 .sign(Algorithm.HMAC256(SECRET));
     }
 
