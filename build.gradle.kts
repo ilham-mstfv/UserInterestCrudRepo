@@ -29,6 +29,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -45,6 +47,8 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
+
+    implementation("com.auth0:java-jwt:4.5.0")
 }
 
 tasks.withType<Test> {
