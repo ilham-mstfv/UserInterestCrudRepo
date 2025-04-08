@@ -26,7 +26,7 @@ public class UserRequest {
     private int age;
 
     @NotNull
-    private List<String> interests;
+    private List<Object> interests;
 
     @NotNull
     private Country country;
