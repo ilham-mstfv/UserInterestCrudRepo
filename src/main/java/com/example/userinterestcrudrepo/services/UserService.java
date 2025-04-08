@@ -6,29 +6,37 @@ import com.example.userinterestcrudrepo.exceptions.NoUsersFoundException;
 import com.example.userinterestcrudrepo.mappers.UserMapper;
 import com.example.userinterestcrudrepo.models.UserFilterRequest;
 import com.example.userinterestcrudrepo.models.UserRequest;
+import com.example.userinterestcrudrepo.repository.InterestJpaRepository;
 import com.example.userinterestcrudrepo.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserJpaRepository userRepository;
     private final UserMapper userMapper;
+    private final InterestJpaRepository interestRepository;
 
     @Autowired
     public UserService(
             UserJpaRepository userRepository,
-            UserMapper userMapper
+            UserMapper userMapper,
+            InterestJpaRepository interestRepository
     ) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.interestRepository = interestRepository;
     }
 
     public User createUserByRequest(UserRequest userRequest) {
-        return userMapper.userRequestToUser(userRequest);
+        return Optional.of(userMapper.userRequestToUser(userRequest, interestRepository))
+                .filter(user ->
+                        user.getInterests().size() == userRequest.getInterests().size())
+                .orElseThrow(() -> new IllegalArgumentException("Interests mapping mismatch"));
     }
 
     public int insertUser(User user) {
