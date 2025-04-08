@@ -21,6 +21,7 @@ public class Interest {
 
         @NotBlank
         @Size(max = 32)
+        @Column(unique = true)
         private String name;
 
         @NotBlank
