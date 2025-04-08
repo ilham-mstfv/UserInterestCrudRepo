@@ -43,8 +43,5 @@ public class UserController {
         return ApiResponse.success(new UserResponse(
                 userService.createAndInsertUserByRequest(userRequest)));
     }
-
-    // MockMVC.
-    // Jacoco tests.
 }
 
