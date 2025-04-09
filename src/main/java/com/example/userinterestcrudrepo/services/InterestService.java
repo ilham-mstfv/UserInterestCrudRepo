@@ -7,6 +7,8 @@ import com.example.userinterestcrudrepo.repository.InterestJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InterestService {
 
@@ -38,5 +40,9 @@ public class InterestService {
     public int createAndInsertInterestByRequest(InterestRequest interestRequest) {
         return this.insertInterest(
                 createInterestByRequest(interestRequest));
+    }
+
+    public List<Interest> getAllInterests() {
+        return interestJpaRepository.findAll();
     }
 }

@@ -16,4 +16,6 @@ public interface InterestJpaRepository extends JpaRepository<Interest, Integer> 
     void delete(Interest interest);
 
     List<Interest> findInterestsByNameIn(List<String> name);
+
+    List<Interest> findAll();
 }

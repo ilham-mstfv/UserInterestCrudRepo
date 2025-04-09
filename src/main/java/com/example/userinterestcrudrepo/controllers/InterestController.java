@@ -1,5 +1,6 @@
 package com.example.userinterestcrudrepo.controllers;
 
+import com.example.userinterestcrudrepo.entities.Interest;
 import com.example.userinterestcrudrepo.entities.User;
 import com.example.userinterestcrudrepo.models.*;
 import com.example.userinterestcrudrepo.services.InterestService;
@@ -24,6 +25,11 @@ public class InterestController {
     public ApiResponse<InterestResponse> addInterest(@Valid @RequestBody InterestRequest interestRequest) {
         return ApiResponse.success(new InterestResponse(
                 interestService.createAndInsertInterestByRequest(interestRequest)));
+    }
+
+    @GetMapping("/users/interest/all")
+    public ApiResponse<List<Interest>> getAllInterests() {
+        return ApiResponse.success(interestService.getAllInterests());
     }
 }
 

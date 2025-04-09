@@ -8,6 +8,7 @@ import com.example.userinterestcrudrepo.repository.InterestJpaRepository;
 import org.mapstruct.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -17,7 +18,15 @@ public interface UserMapper {
     User userRequestToUser(UserRequest userRequest, @Context InterestJpaRepository repo);
 
     @Named("fetchInterestsByName")
-    default List<Interest> fetchInterestsByName(List<String> interests, @Context InterestJpaRepository repo) {
-        return repo.findInterestsByNameIn(interests);
+    default List<Interest> fetchInterestsByName(List<Object> interests, @Context InterestJpaRepository repo) {
+        if (interests.getFirst().getClass() == Integer.class) {
+            return repo.findAllById(interests.stream()
+                    .map(interest -> (Integer) interest)
+                    .collect(Collectors.toList()));
+        } else {
+            return repo.findInterestsByNameIn(interests.stream()
+                    .map(interest -> (String) interest)
+                    .collect(Collectors.toList()));
+        }
     }
 }
