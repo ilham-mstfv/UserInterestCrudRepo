@@ -21,12 +21,16 @@ public class JwtFilterService extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserAccDetailsService userAccDetailsService;
+    private final UserIpService userIpService;
 
     public JwtFilterService(
             JwtService jwtService,
-            UserAccDetailsService userAccDetailsService) {
+            UserAccDetailsService userAccDetailsService,
+            UserIpService userIpService
+    ) {
         this.jwtService = jwtService;
         this.userAccDetailsService = userAccDetailsService;
+        this.userIpService = userIpService;
     }
 
     @Override
@@ -37,6 +41,10 @@ public class JwtFilterService extends OncePerRequestFilter {
     ) throws ServletException, IOException, JWTVerificationException {
 
         if (request.getRequestURI().equals("/users/auth/log")) {
+
+            // TODO
+            userIpService.createAndInsertUserIpByRequest(request, request.getParameter("username"));
+
             chain.doFilter(request, response);
             return;
         }
@@ -45,9 +53,8 @@ public class JwtFilterService extends OncePerRequestFilter {
                 .map(authHeader -> authHeader.substring(7))
                 .ifPresentOrElse(
                         token -> {
-                            assert !request.getRequestURI().equals("/users/auth/reg") || UserRole
-                                    .valueOf(request.getHeader("role"))
-                                    .equals(UserRole.ADMIN);
+                            this.checkAdminRole(request, "/users/auth/reg");
+                            this.checkAdminRole(request, "/users/auth/all");
 
                             String username = jwtService.validateTokenAndRetrieveSubject(token);
 
@@ -62,7 +69,16 @@ public class JwtFilterService extends OncePerRequestFilter {
                             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                             SecurityContextHolder.getContext().setAuthentication(authToken);
 
+                            userIpService.createAndInsertUserIpByRequest(
+                                    request, username);
+
                         }, () -> { throw new RuntimeException("Invalid token"); });
         chain.doFilter(request, response);
+    }
+
+    private void checkAdminRole(HttpServletRequest request, String path) {
+        assert !request.getRequestURI().equals(path) || UserRole
+                .valueOf(request.getHeader("role"))
+                .equals(UserRole.ADMIN);
     }
 }
