@@ -50,7 +50,7 @@ class UserAccCommandLineRunner implements CommandLineRunner {
                 UserRole.ADMIN);
         
         String token = jwtService.generateToken(
-                userAccDetailsService.convertToUserDetails(userAcc), 40000);
+                userAccDetailsService.convertToUserDetails(userAcc), 60000);
 
         userAccJpaRepository.insertUserAcc(userAcc);
 
