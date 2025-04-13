@@ -41,10 +41,6 @@ public class JwtFilterService extends OncePerRequestFilter {
     ) throws ServletException, IOException, JWTVerificationException {
 
         if (request.getRequestURI().equals("/users/auth/log")) {
-
-            // TODO
-            userIpService.createAndInsertUserIpByRequest(request, request.getParameter("username"));
-
             chain.doFilter(request, response);
             return;
         }
@@ -53,8 +49,10 @@ public class JwtFilterService extends OncePerRequestFilter {
                 .map(authHeader -> authHeader.substring(7))
                 .ifPresentOrElse(
                         token -> {
-                            this.checkAdminRole(request, "/users/auth/reg");
-                            this.checkAdminRole(request, "/users/auth/all");
+                            this.checkAdminRole(request,
+                                    "/users/auth/reg",
+                                    "/users/auth/all"
+                            );
 
                             String username = jwtService.validateTokenAndRetrieveSubject(token);
 
@@ -76,9 +74,11 @@ public class JwtFilterService extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    private void checkAdminRole(HttpServletRequest request, String path) {
-        assert !request.getRequestURI().equals(path) || UserRole
-                .valueOf(request.getHeader("role"))
-                .equals(UserRole.ADMIN);
+    private void checkAdminRole(HttpServletRequest request, String... path) {
+        for (String pathElement : path) {
+            assert !request.getRequestURI().equals(pathElement) || UserRole
+                    .valueOf(request.getHeader("role"))
+                    .equals(UserRole.ADMIN);
+        }
     }
 }
