@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.ZonedDateTime;
+import java.time.*;
 
 @Getter
 @Setter
@@ -24,24 +24,29 @@ public class UserIp {
     private String ip;
 
     @NotNull
-    private ZonedDateTime dateTime;
-
-    @NotNull
     private String endpoint;
 
     @NotNull
     private String requestMethod;
 
+    @NotNull
+    private ZonedDateTime dateTime;
+
+    @NotNull
+    private Long epochSecond;
+
     public UserIp(
             String username,
-            String ip, ZonedDateTime dateTime,
+            String ip,
             String endpoint,
-            String requestMethod
+            String requestMethod,
+            ZonedDateTime dateTime
     ) {
         this.username = username;
         this.ip = ip;
-        this.dateTime = dateTime;
         this.endpoint = endpoint;
         this.requestMethod = requestMethod;
+        this.dateTime = dateTime;
+        this.epochSecond = dateTime.toEpochSecond();
     }
 }
