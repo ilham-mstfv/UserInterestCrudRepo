@@ -1,10 +1,12 @@
 package com.example.userinterestcrudrepo.controllers;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.userinterestcrudrepo.models.ApiResponse;
 import com.example.userinterestcrudrepo.models.AuthLogRequest;
 import com.example.userinterestcrudrepo.models.AuthRegRequest;
 import com.example.userinterestcrudrepo.models.AuthResponse;
 import com.example.userinterestcrudrepo.services.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +26,12 @@ public class AuthController {
     }
 
     @PostMapping("/users/auth/log")
-    public ApiResponse<AuthResponse> loginUser(@Valid @RequestBody AuthLogRequest authRequest) {
+    public ApiResponse<AuthResponse> loginUser(
+            @Valid @RequestBody AuthLogRequest authRequest,
+            HttpServletRequest httpServletRequest
+    ) throws JWTVerificationException {
         return ApiResponse.success(new AuthResponse(
-                authService.loginByRequest(authRequest)));
+                authService.loginAndSaveUserDataByRequest(authRequest, httpServletRequest)));
     }
 
     @PostMapping("/users/auth/reg")
