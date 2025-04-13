@@ -9,5 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 public class UserIpFilterRequest {
 
-    private ZonedDateTimeFilter zonedDateTime;
+    private String username;
+    private String ip;
+    private String endpoint;
+    private String requestMethod;
+    private ZonedDateTimeFilter dateTime;
 }
