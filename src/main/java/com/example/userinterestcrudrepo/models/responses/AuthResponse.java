@@ -1,4 +1,4 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -2,7 +2,7 @@ package com.example.userinterestcrudrepo.services;
 
 import com.example.userinterestcrudrepo.entities.Interest;
 import com.example.userinterestcrudrepo.mappers.InterestMapper;
-import com.example.userinterestcrudrepo.models.InterestRequest;
+import com.example.userinterestcrudrepo.models.requests.InterestRequest;
 import com.example.userinterestcrudrepo.repository.InterestJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

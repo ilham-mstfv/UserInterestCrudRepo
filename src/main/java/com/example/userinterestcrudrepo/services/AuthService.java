@@ -1,8 +1,8 @@
 package com.example.userinterestcrudrepo.services;
 
 import com.example.userinterestcrudrepo.entities.UserAcc;
-import com.example.userinterestcrudrepo.models.AuthLogRequest;
-import com.example.userinterestcrudrepo.models.AuthRegRequest;
+import com.example.userinterestcrudrepo.models.requests.AuthLogRequest;
+import com.example.userinterestcrudrepo.models.requests.AuthRegRequest;
 import com.example.userinterestcrudrepo.repository.UserAccJpaRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

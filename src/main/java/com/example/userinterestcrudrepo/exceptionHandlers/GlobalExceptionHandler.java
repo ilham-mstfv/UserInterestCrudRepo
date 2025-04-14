@@ -2,7 +2,7 @@ package com.example.userinterestcrudrepo.exceptionHandlers;
 
 import com.example.userinterestcrudrepo.exceptions.InsertUserException;
 import com.example.userinterestcrudrepo.exceptions.NoUsersFoundException;
-import com.example.userinterestcrudrepo.models.ApiResponse;
+import com.example.userinterestcrudrepo.models.responses.ApiResponse;
 import com.example.userinterestcrudrepo.models.StatusCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -6,6 +6,8 @@ import com.example.userinterestcrudrepo.exceptions.InsertUserException;
 import com.example.userinterestcrudrepo.exceptions.NoUsersFoundException;
 import com.example.userinterestcrudrepo.mappers.UserMapper;
 import com.example.userinterestcrudrepo.models.*;
+import com.example.userinterestcrudrepo.models.requests.UserFilterRequest;
+import com.example.userinterestcrudrepo.models.requests.UserRequest;
 import com.example.userinterestcrudrepo.repository.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

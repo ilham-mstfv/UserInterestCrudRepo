@@ -1,7 +1,7 @@
 package com.example.userinterestcrudrepo.repository;
 
 import com.example.userinterestcrudrepo.entities.User;
-import com.example.userinterestcrudrepo.models.UserFilterRequest;
+import com.example.userinterestcrudrepo.models.requests.UserFilterRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;

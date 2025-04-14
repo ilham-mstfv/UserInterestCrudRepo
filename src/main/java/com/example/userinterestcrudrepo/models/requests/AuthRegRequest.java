@@ -1,5 +1,6 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.requests;
 
+import com.example.userinterestcrudrepo.models.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

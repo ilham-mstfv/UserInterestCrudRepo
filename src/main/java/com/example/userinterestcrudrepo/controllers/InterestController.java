@@ -1,10 +1,10 @@
 package com.example.userinterestcrudrepo.controllers;
 
 import com.example.userinterestcrudrepo.entities.Interest;
-import com.example.userinterestcrudrepo.entities.User;
-import com.example.userinterestcrudrepo.models.*;
+import com.example.userinterestcrudrepo.models.requests.InterestRequest;
+import com.example.userinterestcrudrepo.models.responses.ApiResponse;
+import com.example.userinterestcrudrepo.models.responses.InterestResponse;
 import com.example.userinterestcrudrepo.services.InterestService;
-import com.example.userinterestcrudrepo.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,9 +1,8 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.filters;
 
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter

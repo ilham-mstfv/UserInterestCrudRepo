@@ -1,4 +1,4 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

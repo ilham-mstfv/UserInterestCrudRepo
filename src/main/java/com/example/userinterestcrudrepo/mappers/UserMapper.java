@@ -3,7 +3,7 @@ package com.example.userinterestcrudrepo.mappers;
 
 import com.example.userinterestcrudrepo.entities.Interest;
 import com.example.userinterestcrudrepo.entities.User;
-import com.example.userinterestcrudrepo.models.UserRequest;
+import com.example.userinterestcrudrepo.models.requests.UserRequest;
 import com.example.userinterestcrudrepo.repository.InterestJpaRepository;
 import org.mapstruct.*;
 

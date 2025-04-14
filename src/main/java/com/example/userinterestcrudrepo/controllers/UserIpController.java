@@ -1,8 +1,8 @@
 package com.example.userinterestcrudrepo.controllers;
 
 import com.example.userinterestcrudrepo.entities.UserIp;
-import com.example.userinterestcrudrepo.models.ApiResponse;
-    import com.example.userinterestcrudrepo.models.UserIpFilterRequest;
+import com.example.userinterestcrudrepo.models.responses.ApiResponse;
+import com.example.userinterestcrudrepo.models.requests.UserIpFilterRequest;
 import com.example.userinterestcrudrepo.services.UserIpService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;

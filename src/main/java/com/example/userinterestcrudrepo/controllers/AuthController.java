@@ -1,10 +1,10 @@
 package com.example.userinterestcrudrepo.controllers;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.example.userinterestcrudrepo.models.ApiResponse;
-import com.example.userinterestcrudrepo.models.AuthLogRequest;
-import com.example.userinterestcrudrepo.models.AuthRegRequest;
-import com.example.userinterestcrudrepo.models.AuthResponse;
+import com.example.userinterestcrudrepo.models.responses.ApiResponse;
+import com.example.userinterestcrudrepo.models.requests.AuthLogRequest;
+import com.example.userinterestcrudrepo.models.requests.AuthRegRequest;
+import com.example.userinterestcrudrepo.models.responses.AuthResponse;
 import com.example.userinterestcrudrepo.services.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

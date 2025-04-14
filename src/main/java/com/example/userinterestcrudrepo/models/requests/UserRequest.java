@@ -1,6 +1,7 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.requests;
 
-import com.example.userinterestcrudrepo.entities.Interest;
+import com.example.userinterestcrudrepo.models.Country;
+import com.example.userinterestcrudrepo.models.Lang;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

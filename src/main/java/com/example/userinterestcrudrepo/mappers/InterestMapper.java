@@ -1,7 +1,7 @@
 package com.example.userinterestcrudrepo.mappers;
 
 import com.example.userinterestcrudrepo.entities.Interest;
-import com.example.userinterestcrudrepo.models.InterestRequest;
+import com.example.userinterestcrudrepo.models.requests.InterestRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

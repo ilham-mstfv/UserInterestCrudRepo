@@ -1,4 +1,4 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.responses;
 
 public class UserResponse {
     private UserData user;

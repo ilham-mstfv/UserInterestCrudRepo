@@ -1,5 +1,6 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.requests;
 
+import com.example.userinterestcrudrepo.models.filters.ZonedDateTimeFilter;
 import lombok.*;
 
 @Getter

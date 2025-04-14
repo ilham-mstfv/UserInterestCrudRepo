@@ -1,7 +1,7 @@
 package com.example.userinterestcrudrepo.services;
 
 import com.example.userinterestcrudrepo.entities.UserIp;
-import com.example.userinterestcrudrepo.models.UserIpFilterRequest;
+import com.example.userinterestcrudrepo.models.requests.UserIpFilterRequest;
 import com.example.userinterestcrudrepo.repository.UserIpJpaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

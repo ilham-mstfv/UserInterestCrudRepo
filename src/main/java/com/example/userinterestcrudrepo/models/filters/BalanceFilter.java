@@ -1,4 +1,4 @@
-package com.example.userinterestcrudrepo.models;
+package com.example.userinterestcrudrepo.models.filters;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

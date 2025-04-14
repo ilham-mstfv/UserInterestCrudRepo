@@ -1,7 +1,7 @@
 package com.example.userinterestcrudrepo.exceptionHandlers;
 
 
-import com.example.userinterestcrudrepo.models.ApiResponse;
+import com.example.userinterestcrudrepo.models.responses.ApiResponse;
 import com.example.userinterestcrudrepo.services.UserIpService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
