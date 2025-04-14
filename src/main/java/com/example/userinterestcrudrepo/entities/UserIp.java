@@ -1,5 +1,7 @@
 package com.example.userinterestcrudrepo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -11,6 +13,7 @@ import java.time.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "user_ips")
 public class UserIp {
 
@@ -33,6 +36,7 @@ public class UserIp {
     private ZonedDateTime dateTime;
 
     @NotNull
+    @JsonIgnore
     private Long epochSecond;
 
     public UserIp(
